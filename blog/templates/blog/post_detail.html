@@ -1,0 +1,28 @@
+{% extends "account/base.html" %} {% load static %} {% load sass_tags %} 
+
+
+{% block body %}
+
+<center>
+  <div class="container">
+    <small>{{ object.date_posted }}</small>
+    <h5>{{ object.author }}</h5>
+    <h3>{{object.title }}</h3>
+    <p>{{ object.content }}</p>
+    <hr />
+    <form action="{% url 'post-update' post.id %}">
+      <button type="submit" class="btn btn-success icon-bar">
+        編集
+      </button>
+    </form>
+    <br>
+    
+    <form action="{% url 'post-delete' post.id %}">
+      <button type="submit" class="btn btn-danger icon-bar">
+        削除
+      </button>
+    </form>
+  </div>
+</center>
+
+{% endblock body %}

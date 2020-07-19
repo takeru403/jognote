@@ -1,0 +1,67 @@
+{% load static %} {% load sass_tags %}
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jog note</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% sass_src 'css/style.sass' %}"
+    />
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand mr-3" href="#"><h1>jog note</h1></a>
+            <a class="icon-bar mr-3" href="{% url 'blog-home' %}">Home</a>
+            <a class="icon-bar mr-3" href="{% url 'login' %}">log in</a>
+            <a class="icon-bar mr-3" href="{% url 'logout' %}">log out</a>
+            <a class="icon-bar mr-3" href="{% url 'signup' %}">sign up</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+      <main>
+        {% csrf_token %}
+        <form action="{% url 'post-create' %}">
+          <p>投稿するにはログインが必要です。</p>
+          <button type="submit" class="btn btn-primary icon-bar">
+            新規投稿！
+          </button>
+        </form>
+        {% for post in posts %}
+        <ul>
+          <li>
+            <small>{{ post.date_posted }}</small>
+            <h5>{{ post.author }}</h5>
+            <h3>
+              <a href="{% url 'post-detail' post.id %}">{{post.title }}</a>
+            </h3>
+            <p>{{ post.content }}</p>
+          </li>
+        </ul>
+        <hr />
+
+        {% endfor %}
+      </main>
+    </div>
+  </body>
+</html>

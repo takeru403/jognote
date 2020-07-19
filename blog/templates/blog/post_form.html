@@ -1,0 +1,22 @@
+{% extends 'account/base.html' %}
+{% load static %} {% load sass_tags %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+
+<div class="container">
+  <h3>投稿画面</h3>
+  <main>
+    
+    <form method="POST">
+      {% csrf_token %}
+       {{ form | crispy}}
+     
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </main>
+
+
+  
+{% endblock body %}
